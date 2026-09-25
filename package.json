@@ -1,6 +1,7 @@
 {
   "name": "dumbcode-website",
   "private": true,
+  "version": "2.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,27 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/date-fns": "^2.6.0",
-    "@types/prismjs": "^1.16.6",
-    "@types/smoothscroll-polyfill": "^0.3.1",
-    "autoprefixer": "^10.4.0",
-    "date-fns": "^2.27.0",
+    "@eslint/eslintrc": "^3.3.7",
+    "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "next": "^12.0.4",
-    "postcss": "^8.3.11",
-    "prismjs": "^1.25.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "remark": "^14.0.2",
-    "remark-html": "^15.0.1",
-    "tailwind-scrollbar": "Wyn-Price/tailwind-scrollbar",
-    "tailwindcss": "^3.0.2"
+    "next": "^15.1.6",
+    "prismjs": "^1.29.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
-    "@types/node": "16.11.8",
-    "@types/react": "17.0.35",
-    "eslint": "7",
-    "eslint-config-next": "12.0.4",
-    "typescript": "4.5.2"
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.7",
+    "@types/prismjs": "^1.26.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.6",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3"
   }
 }

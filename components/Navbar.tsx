@@ -1,130 +1,225 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { SvgArtstation, SvgDeviantart, SvgDiscord, SvgGithub, SvgTwitter, SvgYoutube } from "./Icons";
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import {
+  SvgArtstation,
+  SvgDeviantart,
+  SvgDiscord,
+  SvgGithub,
+  SvgTwitter,
+  SvgYoutube,
+} from './Icons'
 
 const logo = '/images/brand/logo.svg'
 
-const Navbar = () => {
+const NAV_ITEMS = [
+  { name: 'Home', route: '/' },
+  { name: 'Studio', route: '/studio' },
+  { name: 'Team', route: '/team' },
+  { name: 'Mods', route: '/mods' },
+  { name: 'Blog', route: '/blog' },
+]
 
-    return (
-        <>
-            <div className="hidden lg:block w-screen">
-                <DesktopNavbar />
-            </div>
-            <div className="lg:hidden w-screen">
-                <MobileNavbar />
-            </div>
-        </>
-    );
-}
+const SOCIALS = [
+  { icon: <SvgDiscord />, route: 'https://discord.gg/6mygAnq', label: 'Discord' },
+  { icon: <SvgTwitter />, route: 'https://twitter.com/dumbcodemc', label: 'Twitter' },
+  { icon: <SvgGithub />, route: 'https://github.com/Dumb-Code', label: 'GitHub' },
+  {
+    icon: <SvgYoutube />,
+    route: 'https://www.youtube.com/channel/UCjGWjtS8OMznjzTzpxQ0QYQ',
+    label: 'YouTube',
+  },
+  {
+    icon: <SvgDeviantart />,
+    route: 'https://www.deviantart.com/projectnublar',
+    label: 'DeviantArt',
+  },
+  {
+    icon: <SvgArtstation />,
+    route: 'https://www.artstation.com/dumbcodemc',
+    label: 'ArtStation',
+  },
+]
 
-const MobileNavbar = () => {
+export default function Navbar() {
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
-    const [open, setOpen] = useState(false);
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
-    const toggleOpen = () => {
-        setOpen(!open);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Prevent background scroll while the mobile menu is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
     }
+  }, [open])
 
-    return (
-        <>
-            <div className="bg-neutral-900 w-screen h-14 md:pl-10 flex flex-row">
-                <NavbarBrandButton />
-                <div className="flex-grow"></div>
-                <MobileNavOpenButton open={open} toggleOpen={toggleOpen} />
-            </div>
-            {open && <NavbarItems />}
-        </>
-    );
-}
+  return (
+    <header
+      className={
+        'fixed inset-x-0 top-0 z-50 transition-colors duration-300 ' +
+        (scrolled || open
+          ? 'glass border-b border-white/5'
+          : 'border-b border-transparent')
+      }
+    >
+      <nav
+        className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:px-6 lg:px-8"
+        aria-label="Main"
+      >
+        <Link
+          href="/"
+          className="group flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors hover:bg-white/5"
+        >
+          <span className="relative h-7 w-7">
+            <Image src={logo} alt="" width={28} height={28} className="h-7 w-7" />
+          </span>
+          <span className="text-sm font-semibold tracking-[0.18em] text-ink-100">
+            DUMBCODE
+          </span>
+        </Link>
 
-const MobileNavOpenButton = ({ open, toggleOpen }: { open: boolean, toggleOpen: () => void }) => {
-    return (
-        <div className="mt-5 mr-2 md:mr-10 group" onClick={toggleOpen}>
-            <div className={(open ? "translate-y-1 -rotate-45 group-hover:bg-red-500" : "-translate-y-2 group-hover:bg-neutral-500") + " rounded-full h-1 w-8 bg-white transition-all"}></div>
-            <div className={(open ? "opacity-0 group-hover:bg-red-500" : "opacity-100 group-hover:bg-neutral-500") + " rounded-full h-1 w-8 bg-white  transition-all"}></div>
-            <div className={(open ? "-translate-y-1 rotate-45 group-hover:bg-red-500" : "translate-y-2 group-hover:bg-neutral-500") + " rounded-full h-1 w-8 bg-white transition-all"}></div>
+        <div className="hidden items-center gap-1 lg:flex">
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.route}
+              {...item}
+              active={
+                item.route === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(item.route)
+              }
+            />
+          ))}
         </div>
-    );
-}
 
-const DesktopNavbar = () => {
-
-    return (
-        <div className="bg-neutral-900 w-screen h-14 pl-10 flex flex-row z-50">
-            <NavbarBrandButton />
-            <NavbarItems />
+        <div className="ml-auto hidden items-center gap-1 lg:flex">
+          {SOCIALS.map((s) => (
+            <SocialLink key={s.label} {...s} />
+          ))}
         </div>
-    );
-}
 
-const NavbarBrandButton = () => {
-
-    const router = useRouter();
-    const takeHome = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        router.push("/");
-    }
-
-    return (
-        <div className="bg-neutral-900 px-4 text-white text-xs capitalize hover:bg-neutral-700 h-full font-semibold flex flex-row cursor-pointer"
-            onClick={takeHome}>
-            <div className="mt-4 mr-2 h-6 w-6 relative">
-                <Image alt="logo" src={logo} layout="fill" />
-            </div>
-            <p className="pt-5">DUMBCODE</p>
-        </div>
-    );
-}
-
-const NavbarItems = () => {
-    return (
-        <div className="w-full lg:flex lg:flex-row lg:bg-neutral-900 bg-neutral-800 relative top-0 z-50">
-            <div className="lg:flex-grow">
-                <NavbarButton name="HOME" route="/" />
-                <NavbarButton name="STUDIO" route="/studio" />
-                <NavbarButton name="TEAM" route="/team" />
-                <NavbarButton name="MODS" route="/mods" />
-                <NavbarButton name="BLOG" route="/blog" />
-            </div>
-            <div className="lg:pr-4 lg:mr-10 pt-3 flex flex-row bg-neutral-900 pb-4 lg:pb-0">
-                <div className="lg:hidden flex-grow"></div>
-                <NavbarIconButton icon={<SvgDiscord className="h-6 w-6 text-center" />} route="https://discord.gg/6mygAnq" />
-                <NavbarIconButton icon={<SvgTwitter className="h-6 w-6 text-center" />} route="https://twitter.com/dumbcodemc" />
-                <NavbarIconButton icon={<SvgGithub className="h-6 w-6 text-center" />} route="https://github.com/Dumb-Code" />
-                <NavbarIconButton icon={<SvgYoutube className="h-6 w-6 text-center" />} route="https://www.youtube.com/channel/UCjGWjtS8OMznjzTzpxQ0QYQ" />
-                <NavbarIconButton icon={<SvgDeviantart className="h-6 w-6 text-center" />} route="https://www.deviantart.com/projectnublar" />
-                <NavbarIconButton icon={<SvgArtstation className="h-6 w-6 text-center" />} route="https://www.artstation.com/dumbcodemc" />
-                <div className="lg:hidden flex-grow"></div>
-            </div>
-        </div>
-    );
-}
-
-const NavbarButton = ({ name, route }: { name: string, route: string }) => {
-
-    const router = useRouter();
-    const handleClick = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        router.push(route);
-    }
-
-    return (
-        <button className="bg-neutral-900 px-4 text-white text-xs capitalize hover:bg-neutral-700 lg:h-full font-semibold transition-colors lg:w-auto w-full h-10"
-            onClick={handleClick}>
-            {name}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          className="ml-auto flex h-10 w-10 items-center justify-center rounded-lg text-ink-200 transition-colors hover:bg-white/5 lg:hidden"
+        >
+          <span className="relative block h-4 w-6">
+            <span
+              className={
+                'absolute left-0 block h-0.5 w-6 rounded-full bg-current transition-all duration-300 ' +
+                (open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0')
+              }
+            />
+            <span
+              className={
+                'absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-current transition-all duration-200 ' +
+                (open ? 'opacity-0' : 'opacity-100')
+              }
+            />
+            <span
+              className={
+                'absolute left-0 block h-0.5 w-6 rounded-full bg-current transition-all duration-300 ' +
+                (open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0')
+              }
+            />
+          </span>
         </button>
-    );
+      </nav>
+
+      {/* Mobile drawer */}
+      <div
+        className={
+          'overflow-hidden border-t border-white/5 bg-surface-900/95 backdrop-blur transition-[max-height] duration-300 lg:hidden ' +
+          (open ? 'max-h-96' : 'max-h-0')
+        }
+      >
+        <div className="flex flex-col gap-1 px-4 py-4 sm:px-6">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.route}
+              href={item.route}
+              className={
+                'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ' +
+                (pathname === item.route
+                  ? 'bg-brand-600/15 text-brand-300'
+                  : 'text-ink-300 hover:bg-white/5 hover:text-ink-100')
+              }
+            >
+              {item.name}
+            </Link>
+          ))}
+          <div className="mt-3 flex flex-wrap gap-2 border-t border-white/5 pt-4">
+            {SOCIALS.map((s) => (
+              <SocialLink key={s.label} {...s} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+  )
 }
 
-const NavbarIconButton = ({ icon, route }: { icon: JSX.Element, route: string }) => {
-
-    return (
-        <a target="_blank" rel="noreferrer" href={route} className="bg-neutral-900 pl-1 pt-1 text-white text-xs capitalize hover:bg-neutral-700 h-8 w-8 rounded-full font-semibold transition-all mx-1 hover:scale-110">
-            {icon}
-        </a>
-    );
+function NavLink({
+  name,
+  route,
+  active,
+}: {
+  name: string
+  route: string
+  active: boolean
+}) {
+  return (
+    <Link
+      href={route}
+      className={
+        'rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ' +
+        (active
+          ? 'bg-brand-600/15 text-brand-300'
+          : 'text-ink-300 hover:bg-white/5 hover:text-ink-100')
+      }
+    >
+      {name}
+    </Link>
+  )
 }
 
-export default Navbar;
+function SocialLink({
+  icon,
+  route,
+  label,
+}: {
+  icon: React.ReactNode
+  route: string
+  label: string
+}) {
+  return (
+    <a
+      href={route}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      title={label}
+      className="flex h-9 w-9 items-center justify-center rounded-full text-ink-400 transition-all hover:scale-110 hover:bg-white/5 hover:text-brand-300 [&>svg]:h-4 [&>svg]:w-4"
+    >
+      {icon}
+    </a>
+  )
+}

@@ -1,51 +1,127 @@
-import Link from 'next/link';
-import { SvgPoweredByVercel } from './Icons';
+import Link from 'next/link'
+import { SvgPoweredByVercel } from './Icons'
 
-const Footer = () => {
+const socialLinks = [
+  { label: 'Discord', href: 'https://discord.gg/6mygAnq' },
+  { label: 'GitHub', href: 'https://github.com/Dumb-Code' },
+  { label: 'Twitter', href: 'https://twitter.com/dumbcodemc' },
+  { label: 'DeviantArt', href: 'https://www.deviantart.com/projectnublar' },
+  {
+    label: 'YouTube',
+    href: 'https://www.youtube.com/channel/UCjGWjtS8OMznjzTzpxQ0QYQ',
+  },
+  { label: 'ArtStation', href: 'https://www.artstation.com/dumbcodemc' },
+]
+
+export default function Footer() {
   return (
-    <footer className="footer bg-neutral-900 xl:px-60 lg:px-20 px-0 py-20">
-      <div className="grid grid-flow-row md:grid-cols-4 px-4 md:px-20 lg:grid-cols-7 gap-y-10 gap-x-10 lg:gap-x-2">
-        <div className="text-neutral-700 text-xs mx-4 w-full col-span-2">
-          <h1 className="text-3xl">Stay Connected</h1>
-          <p>Join our community of over 1300 users following our mod. We post updates on all our products on our media locations.</p>
-          <a className="text-blue-500" href="https://discord.gg/6mygAnq">Discord</a><br />
-          <a className="text-blue-500" href="https://github.com/Dumb-Code">GitHub</a><br />
-          <a className="text-blue-500" href="https://twitter.com/dumbcodemc">Twitter</a><br />
-          <a className="text-blue-500" href="https://www.deviantart.com/projectnublar">Devianart</a><br />
-          <a className="text-blue-500" href="https://www.youtube.com/channel/UCjGWjtS8OMznjzTzpxQ0QYQ">YouTube</a><br />
-          <a className="text-blue-500" href="https://www.artstation.com/dumbcodemc">ArtStation</a><br />
+    <footer className="border-t border-white/5 bg-surface-950">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-6">
+          <div className="col-span-2 lg:col-span-2">
+            <h2 className="text-2xl font-semibold text-ink-100">
+              Stay Connected
+            </h2>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-400">
+              Join our community of over 1300 users following our mod. We post
+              updates on all our products on our media locations.
+            </p>
+            <ul className="mt-4 space-y-1.5">
+              {socialLinks.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-brand-400 transition-colors hover:text-brand-300"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-span-2 lg:col-span-2">
+            <h2 className="text-2xl font-semibold text-ink-100">Our Mission</h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink-400">
+              The DumbCode{' '}
+              <Link
+                href="/team"
+                className="text-brand-400 transition-colors hover:text-brand-300"
+              >
+                Team
+              </Link>{' '}
+              is committed to bringing high quality content to members of our
+              community and expanding our community to new interested people.
+              We believe in equal opportunity to contributors and we will
+              strive to create a fair workplace while keeping the progress
+              organized and thought out.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-semibold text-ink-100">Mods</h2>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              <li>
+                <FooterLink href="/mods/projectnublar">
+                  Project: Nublar
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/mods/dumblibrary">Dumb Library</FooterLink>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-semibold text-ink-100">Tools</h2>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              <li>
+                <FooterLink href="/studio">DumbCode Studio</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/mods/gradlehook">Gradlehook</FooterLink>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="text-neutral-700 text-xs mx-4 w-full col-span-2">
-          <h1 className="text-3xl">Our Mission</h1>
-          <div>The DumbCode <div className="text-blue-500 inline-block"><Link href="/team">Team</Link></div> is commited to bringing high quality content to members of our community and expanding our community to new interested people. We believe in equal opportunity to contributors and we will strive to create a fair workplace while keeping the progress organized and thought out.</div>
-        </div>
-        <div className="mx-4 w-full col-span-2 lg:col-span-1">
-          <div className="text-neutral-700 text-xs">
-            <h1 className="text-3xl">Our Stuff</h1>
-          </div>
-          <div className="text-neutral-700 text-xs">
-            <p className="my-0">Mods</p>
-            <div className="text-blue-500"><Link href="/mods/projectnublar">Project: Nublar</Link></div>
-            <div className="text-blue-500"><Link href="/mods/dumblibrary">Dumb Library</Link></div>
-          </div>
-          <br />
-          <div className="text-neutral-700 text-xs">
-            <p className="my-0">Tools</p>
-            <div className="text-blue-500"><Link href="/studio">Dumbcode Studio</Link></div>
-            <div className="text-blue-500"><Link href="/mods/gradlehook">Gradlehook</Link></div>
-          </div>
-        </div>
-        <div className="mx-4 w-full col-span-2">
-          <div className="text-neutral-700 text-xs">
-            <h1 className="text-3xl">Other Stuff</h1>
-            <p>DumbCode is in no way affiliated with Minecraft or its owners Mojang Studios. Our content licenses are placed under their corresponding code repositories and should be treated as true pieces of software.</p>
-            <div className="text-neutral-700 text-xs mt-2 mb-10">DumbCode Website updated 2021.</div>
-            <a href="https://vercel.com/?utm_source=dumbcode&utm_campaign=oss"><SvgPoweredByVercel /></a>
-          </div>
+
+        <div className="mt-14 flex flex-col gap-6 border-t border-white/5 pt-8 text-sm text-ink-400 md:flex-row md:items-center md:justify-between">
+          <p className="max-w-2xl leading-relaxed">
+            DumbCode is in no way affiliated with Minecraft or its owners
+            Mojang Studios. Our content licenses are placed under their
+            corresponding code repositories and should be treated as true
+            pieces of software.
+          </p>
+          <a
+            href="https://vercel.com/?utm_source=dumbcode&utm_campaign=oss"
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 opacity-70 transition-opacity hover:opacity-100"
+            aria-label="Powered by Vercel"
+          >
+            <SvgPoweredByVercel className="h-6" />
+          </a>
         </div>
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+function FooterLink({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}) {
+  return (
+    <Link
+      href={href}
+      className="text-brand-400 transition-colors hover:text-brand-300"
+    >
+      {children}
+    </Link>
+  )
+}

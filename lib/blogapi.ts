@@ -2,9 +2,18 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import { join } from 'path'
 
-export type AuthorType = { name: string, picture: string }
+export type AuthorType = { name: string; picture: string }
 export type OgImageType = { url: string }
-export type PostType = { title: string, slug: string, coverImage: string, date: string, author: AuthorType, excerpt: string, ogImage: OgImageType, content: string }
+export type PostType = {
+  title: string
+  slug: string
+  coverImage: string
+  date: string
+  author: AuthorType
+  excerpt: string
+  ogImage: OgImageType
+  content: string
+}
 
 const postsDirectory = join(process.cwd(), '_posts')
 
@@ -18,9 +27,8 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  const items: Record<string, string> = {}
+  const items: Record<string, unknown> = {}
 
-  // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
     if (field === 'slug') {
       items[field] = realSlug
@@ -28,20 +36,19 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     if (field === 'content') {
       items[field] = content
     }
-
     if (typeof data[field] !== 'undefined') {
       items[field] = data[field]
     }
   })
 
-  return items
+  return items as Record<string, never>
 }
 
 export function getAllPosts(fields: string[] = []) {
   const slugs = getPostSlugs()
-  const posts = slugs
+  return slugs
     .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-  return posts
+    .sort((post1, post2) =>
+      (post1 as { date?: string }).date! > (post2 as { date?: string }).date! ? -1 : 1
+    ) as unknown as PostType[]
 }
