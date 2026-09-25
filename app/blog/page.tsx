@@ -76,7 +76,7 @@ export default function BlogIndex() {
 
 const HeroPost = ({ post }: { post: PostType }) => {
   return (
-    <section className="pb-20">
+    <section>
       <Link href={`/blog/${post.slug}`} aria-label={post.title}>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative aspect-[21/9] overflow-hidden rounded-2xl border border-white/5">
@@ -88,7 +88,7 @@ const HeroPost = ({ post }: { post: PostType }) => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-surface-950 via-surface-950/30 to-transparent" />
           </div>
-          <div className="relative -mt-24 ml-4 mr-4 rounded-xl border border-white/5 bg-surface-900/95 p-8 backdrop-blur sm:ml-8 sm:mr-8">
+          <div className="relative -mt-12 ml-4 mr-4 rounded-xl border border-white/5 bg-surface-900/95 p-8 backdrop-blur sm:-mt-24 sm:ml-8 sm:mr-8">
             <h3 className="text-balance text-3xl font-semibold leading-tight text-ink-100 sm:text-4xl">
               {post.title}
             </h3>

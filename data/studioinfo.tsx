@@ -51,7 +51,7 @@ export const AnimatorDesc = (props: DetailedHTMLProps<HTMLAttributes<HTMLParagra
             <br /><br />
             Our animator is jam packed with features like a now stackable keyframe based timeline that isn&lsquo;t per-cuboid. This means you can more
             easily animate complex models and manage your keyframes with layers. Our Animator also brings a new way to represent easing functions
-            with what we refer to as "progression points", the more optimal way to animate details on your model during runtime versus on-the-fly
+            with what we refer to as &ldquo;progression points&rdquo;, the more optimal way to animate details on your model during runtime versus on-the-fly
             calculations. In v3.0 we are also bringing some of those command based design methodologies to the Animator to better automate the
             animation workflow. Our animator also has event points so that the animators can more easily coordinate with the game programmers to
             time game events with the animation events; like trigger a particle effect when a dragon has it&lsquo;s mouth open.

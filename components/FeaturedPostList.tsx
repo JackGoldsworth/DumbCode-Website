@@ -5,7 +5,7 @@ import DateFormatter from './DateFormatter'
 
 export default function FeaturedPostList({ posts }: { posts: PostType[] }) {
   return (
-    <section className="pb-10">
+    <section>
       {posts.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
@@ -18,7 +18,6 @@ export default function FeaturedPostList({ posts }: { posts: PostType[] }) {
     </section>
   )
 }
-
 const PostPreview = ({ post }: { post: PostType }) => {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl border border-white/5 bg-surface-900 transition-all duration-300 hover:-translate-y-1 hover:border-brand-500/40 hover:shadow-2xl hover:shadow-brand-950/40">

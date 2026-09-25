@@ -101,10 +101,10 @@ export default function HomePage() {
                 <div className="mt-10 flex flex-wrap items-center gap-3">
                   <Link
                     href="/studio"
-                    className="group inline-flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-600 hover:gap-3"
+                    className="group inline-flex items-center gap-2 rounded-full bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
                   >
                     Explore the Studio
-                    <span aria-hidden>→</span>
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                   </Link>
                   <Link
                     href="/mods"
@@ -165,9 +165,9 @@ export default function HomePage() {
               </p>
               <Link
                 href="/studio"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-all hover:gap-3 hover:text-brand-300"
+                className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-colors hover:text-brand-300"
               >
-                View More <span aria-hidden>→</span>
+                View More <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </Reveal>
 
@@ -260,15 +260,15 @@ export default function HomePage() {
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-400">
               Our mission
             </p>
-            <blockquote className="display mt-6 text-balance text-3xl text-ink-100 sm:text-5xl">
+            <blockquote className="display mt-6 text-balance text-3xl leading-[1.15] text-ink-100 sm:text-5xl sm:leading-[1.1]">
               Bringing high-quality content to our community, and expanding it
               to new people — with equal opportunity for every contributor.
             </blockquote>
             <Link
               href="/team"
-              className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-all hover:gap-3 hover:text-brand-300"
+              className="group mt-10 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-colors hover:text-brand-300"
             >
-              Meet the team <span aria-hidden>→</span>
+              Meet the team <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </Reveal>
         </Container>
@@ -345,8 +345,8 @@ function ModCard({
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-400">
           {mod.desc}
         </p>
-        <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-all group-hover:gap-3 group-hover:text-brand-300">
-          View More <span aria-hidden>→</span>
+        <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-400 transition-colors group-hover:text-brand-300">
+          View More <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
         </span>
       </div>
     </Link>

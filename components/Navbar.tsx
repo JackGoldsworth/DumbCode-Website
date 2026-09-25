@@ -125,7 +125,9 @@ export default function Navbar() {
             <span
               className={
                 'absolute left-0 block h-0.5 w-6 rounded-full bg-current transition-all duration-300 ' +
-                (open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0')
+                (open
+                  ? 'top-1/2 -translate-y-1/2 rotate-45'
+                  : 'top-0 translate-y-0')
               }
             />
             <span
@@ -137,7 +139,9 @@ export default function Navbar() {
             <span
               className={
                 'absolute left-0 block h-0.5 w-6 rounded-full bg-current transition-all duration-300 ' +
-                (open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0')
+                (open
+                  ? 'top-1/2 -translate-y-1/2 -rotate-45'
+                  : 'top-full -translate-y-full')
               }
             />
           </span>
