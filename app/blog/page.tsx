@@ -6,7 +6,8 @@ import DateFormatter from '../../components/DateFormatter'
 import FeaturedPostList from '../../components/FeaturedPostList'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
-import { Container, SectionHeading } from '../../components/Section'
+import { Reveal } from '../../components/Reveal'
+import { Container } from '../../components/Section'
 import { getAllPosts, PostType } from '../../lib/blogapi'
 import { buildMetadata } from '../../lib/seo'
 
@@ -36,22 +37,32 @@ export default function BlogIndex() {
     <div className="flex min-h-screen flex-col bg-surface-950">
       <Navbar />
       <main className="flex-1 pt-16">
-        <Container className="py-20">
-          <SectionHeading
-            eyebrow="Latest post"
-            title="From the blog"
-            subtitle="What's new with DumbCode."
-          />
+        <Container className="py-24">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-400">
+              Latest post
+            </p>
+            <h1 className="display mt-4 text-5xl text-ink-100 sm:text-6xl">
+              From the blog
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-ink-400">
+              What&apos;s new with DumbCode.
+            </p>
+          </Reveal>
         </Container>
 
         {latestPost && <HeroPost post={latestPost} />}
 
-        <section className="border-t border-white/5 bg-surface-900/40 py-20">
+        <section className="border-t border-white/5 bg-surface-900/40 py-24">
           <Container>
-            <SectionHeading
-              title="Other Posts"
-              subtitle="See updates on what we've got cooking."
-            />
+            <Reveal>
+              <h2 className="display text-4xl text-ink-100 sm:text-5xl">
+                Other Posts
+              </h2>
+              <p className="mt-3 text-ink-400">
+                See updates on what we&apos;ve got cooking.
+              </p>
+            </Reveal>
             <div className="mt-12">
               <FeaturedPostList posts={morePosts} />
             </div>

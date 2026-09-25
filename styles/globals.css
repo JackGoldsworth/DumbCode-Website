@@ -26,6 +26,21 @@
     Roboto, Helvetica, Arial, sans-serif;
 
   --radius-xl2: 1.25rem;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-slow: marquee 70s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -104,6 +119,34 @@
         color-mix(in oklab, var(--color-brand-600) 35%, transparent),
         transparent 70%
       );
+  }
+
+  /* Faint engineering grid, fades toward the edges. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, white 5%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, white 5%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 75%);
+  }
+
+  /* Oversized editorial display type. */
+  .display {
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+}
+
+/* Respect reduced-motion preferences for the decorative animations. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-slow,
+  .animate-float {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
 

@@ -3,7 +3,8 @@ import type { ReactElement } from 'react'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
 import BackgroundImage from '../../components/BackgroundImage'
-import { Container, SectionHeading } from '../../components/Section'
+import { Reveal } from '../../components/Reveal'
+import { Container } from '../../components/Section'
 import {
   SvgArtstation,
   SvgDeviantart,
@@ -33,12 +34,18 @@ export default function TeamPage() {
     <div className="flex min-h-screen flex-col bg-surface-950">
       <Navbar />
       <main className="flex-1 pt-16">
-        <Container className="py-20">
-          <SectionHeading
-            eyebrow="The people"
-            title="DumbCode Members"
-            subtitle="Our amazing team of current contributors."
-          />
+        <Container className="py-24">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-400">
+              The people
+            </p>
+            <h1 className="display mt-4 text-5xl text-ink-100 sm:text-6xl">
+              DumbCode Members
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-ink-400">
+              Our amazing team of current contributors.
+            </p>
+          </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-2 2xl:grid-cols-3">
             {primaryMembers.map((member, key) => (
               <PrimaryMemberCard key={key} member={member} />
@@ -56,12 +63,18 @@ export default function TeamPage() {
           </Container>
         </div>
 
-        <Container className="py-20">
-          <SectionHeading
-            eyebrow="Thank you"
-            title="Past Members"
-            subtitle="Those who helped us in the past."
-          />
+        <Container className="py-24">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-400">
+              Thank you
+            </p>
+            <h2 className="display mt-4 text-5xl text-ink-100 sm:text-6xl">
+              Past Members
+            </h2>
+            <p className="mt-4 max-w-xl text-lg text-ink-400">
+              Those who helped us in the past.
+            </p>
+          </Reveal>
           <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-6">
             {pastMembers.map((member, key) => (
               <PastMemberCard key={key} member={member} />

@@ -3,7 +3,8 @@ import Link from 'next/link'
 import BackgroundImage from '../../components/BackgroundImage'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
-import { Container, SectionHeading } from '../../components/Section'
+import { Reveal } from '../../components/Reveal'
+import { Container } from '../../components/Section'
 import { buildMetadata } from '../../lib/seo'
 
 const project_nublar = '/images/project_nublar/trike.jpg'
@@ -43,17 +44,25 @@ export default function ModsPage() {
     <div className="flex min-h-screen flex-col bg-surface-950">
       <Navbar />
       <main className="flex-1 pt-16">
-        <Container className="py-20">
-          <SectionHeading
-            eyebrow="What we build"
-            title="DumbCode Mods"
-            subtitle="The cool stuff we've made for players and modders."
-          />
+        <Container className="py-24">
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-400">
+              What we build
+            </p>
+            <h1 className="display mt-4 text-5xl text-ink-100 sm:text-6xl">
+              DumbCode Mods
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-ink-400">
+              The cool stuff we&apos;ve made for players and modders.
+            </p>
+          </Reveal>
         </Container>
 
-        <Container className="space-y-16 pb-24">
+        <Container className="space-y-20 pb-24">
           {mods.map((mod, i) => (
-            <ModSection key={mod.title} {...mod} flip={i % 2 === 1} />
+            <Reveal key={mod.title}>
+              <ModSection {...mod} flip={i % 2 === 1} />
+            </Reveal>
           ))}
         </Container>
       </main>
@@ -83,18 +92,18 @@ function ModSection({
       }
     >
       <div className="rounded-xl border border-white/5 bg-surface-900 p-6 lg:col-span-1">
-        <h2 className="text-3xl font-semibold text-ink-100">{title}</h2>
+        <h2 className="display text-4xl text-ink-100">{title}</h2>
         <p className="mt-4 text-sm leading-relaxed text-ink-400">{desc}</p>
         <Link
           href={route}
-          className="mt-8 inline-block rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:gap-3 hover:bg-brand-600"
         >
-          View More
+          View More <span aria-hidden>→</span>
         </Link>
       </div>
       <Link
         href={route}
-        className="group block aspect-video overflow-hidden rounded-xl border border-white/5 bg-surface-900 lg:col-span-2"
+        className="group block aspect-video overflow-hidden rounded-2xl border border-white/5 bg-surface-900 lg:col-span-2"
       >
         <div className="h-full w-full transition-transform duration-500 group-hover:scale-105">
           <BackgroundImage alt={title} sizes="(min-width: 1024px) 66vw, 100vw" src={img} />
